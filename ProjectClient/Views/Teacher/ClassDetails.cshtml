@@ -1,0 +1,125 @@
+﻿@model ProjectClient.Models.ClassViewModel;
+@{
+    List<Resource> resources = (List<Resource>)ViewData["resources"];
+}
+
+<h1>Class @Model.Class.Name</h1>
+<div>
+    <a asp-action="Index">Return to Class List page</a>
+</div>
+<br />
+
+<div>
+    <h3>Resources</h3>
+    <a href="../AddResource/@Model.Class.Id">Add Resource</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <p>Name</p>
+                </th>
+                <th>
+                    <p>Upload Date</p>
+                </th>
+                <th>
+                    <p>Download</p>
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Resource r in resources)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(s => r.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(s => r.UploadDate)
+                    </td>
+                    <td>
+                        @Html.ActionLink(r.Path, "DownloadResource", new { id = r.Id })
+                    </td>
+                    <td>
+                        @Html.ActionLink("Remove", "RemoveResource", new { id = r.Id })
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <br />
+
+    <h3>Students in Class</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <p>Id</p>
+                </th>
+                <th>
+                    <p>Name</p>
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Students)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(s => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(s => item.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Remove", "RemoveStudentFromClass", new{  id = item.Id, id2 = Model.Class.Id})
+                    </td>
+                </tr>
+            }
+
+        </tbody>
+    </table>
+    <br />
+
+    <h3>Available Students</h3>
+    @if (Model.newStudents == null)
+    {
+        <p>all students are added</p>
+    }
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    <p>Id</p>
+                </th>
+                <th>
+                    <p>Name</p>
+                </th>
+                <th>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.newStudents)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(s => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(s => item.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Add", "AddStudentToClass", new{  id = item.Id , id2 = Model.Class.Id})
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+

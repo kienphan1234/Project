@@ -1,0 +1,14 @@
+﻿@model ProjectClient.Models.StudentViewModel
+
+<h1>Hello @Model.Student.Name</h1>
+<br />
+
+<ul>
+    @foreach (var item in Model.Classes)
+    {
+        <li>
+            @Html.ActionLink(item.Name, "ClassDetails", new{id = item.Id})
+        </li>
+    }
+</ul>
+

@@ -1,0 +1,32 @@
+﻿@model ProjectClient.Models.AddResourceModel
+@{
+    int classId = (int)ViewData["classId"];
+}
+
+<h1>Add Resource</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="mb-3">
+                <label asp-for="Name" class="col-form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="File" class="col-form-label"></label>
+                <input asp-for="File" class="form-control" />
+                @Html.AntiForgeryToken()
+                <span asp-validation-for="File" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <input type="submit" value="Submit" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a href="../ClassDetails/@classId">Return to Class page</a>
+</div>

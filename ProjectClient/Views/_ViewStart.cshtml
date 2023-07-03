@@ -1,0 +1,18 @@
+﻿@using System.Text.Json
+@using ProjectClient.Models
+
+@{
+    if (Context.Session.GetString("AccountSession") == null)
+    {
+        Layout = "_Layout";
+    }
+    else
+    {
+        var account = JsonSerializer.Deserialize<Account>(Context.Session.GetString("AccountSession"));
+        if (account.Role == 1)
+        {
+            Layout = "_LayoutTeacher";
+        }
+        else Layout = "_LayoutStudent";
+    }
+}

@@ -1,0 +1,41 @@
+﻿@model ProjectClient.Models.Class
+@{
+    List<Resource> resources = (List<Resource>)ViewData["resources"];
+}
+
+<h1>Class @Model.Name</h1>
+<br />
+
+<h3>Resources</h3>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p>Name</p>
+            </th>
+            <th>
+                <p>Upload Date</p>
+            </th>
+            <th>
+                <p>Download</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Resource r in resources)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(s => r.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(s => r.UploadDate)
+                </td>
+                <td>
+                    @Html.ActionLink(r.Path, "DownloadResource", new { id = r.Id })
+                </td>
+            </tr>
+        }
+
+    </tbody>
+</table>
